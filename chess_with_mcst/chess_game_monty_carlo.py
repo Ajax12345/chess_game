@@ -266,10 +266,11 @@ if __name__ == "__main__":
     g.get_possible_moves()
     '''
     g = ChessGame()
-    for i in range(8):
-        print "", i+1, "",
-    print
+    
     while True:
+        for i in range(8):
+            print "", i+1, "",
+        print
         for row, i in enumerate(g.view_board):
             for b in i:
                 if b == "-":
