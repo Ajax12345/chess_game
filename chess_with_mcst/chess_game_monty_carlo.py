@@ -55,11 +55,13 @@ class ChessGame(chess_board_pieces.Board):
             final_piece_to_move = random.choice(other_possibilites.keys())
             self.move_piece(final_piece_to_move, other_possibilites[final_piece_to_move])
 
+
+
     def user_move(self):
         x = input("Enter the x-corrdinate: ")
         y = input("Enter the y-corrdinate: ")
         piece = raw_input("Enter the piece name: ")
-        self.move_piece(piece, (x, y))
+        self.move_piece(piece, (x-1, y-1))
 
 
 
@@ -197,11 +199,12 @@ class ChessGame(chess_board_pieces.Board):
                 return self.black_capture_rate > self.white_capture_rate
 
 
-        mock_game = SmallGame(self.view_board[:], self.white_pieces[:], self.white_places.copy(), self.black_pieces[:], self.black_place.copy()) #may need copy.deepcopy()
+        mock_game = SmallGame(copy.deepcopy(self.view_board), copy.deepcopy(self.white_pieces), copy.deepcopy(self.white_places), copy.deepcopy(self.black_pieces), copy.deepcopy(self.black_place)) #may need copy.deepcopy()
 
         mock_game.move_to(piece, to_square)
 
         for i in range(25):
+
             white_possible_moves = {}
             black_possible_moves = {}
 
@@ -250,12 +253,22 @@ class ChessGame(chess_board_pieces.Board):
             mock_game.move_to(piece_to_test, place_to_move)
 
 
+
+
         return 1 if mock_game.determine_results() else 0
 
 
 
 if __name__ == "__main__":
+    '''
     g = ChessGame()
+
+    g.get_possible_moves()
+    '''
+    g = ChessGame()
+    for i in range(8):
+        print "", i+1, "",
+    print
     while True:
         for row, i in enumerate(g.view_board):
             for b in i:
