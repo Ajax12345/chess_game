@@ -28,7 +28,7 @@ def get_knight_moves(view_board, x, y):
         a, b = (x-2, y-1) #-
                               #-
                               #- -
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-" or "b" in view_board[a][b]:
             to_return.append((a, b))
 
     except:
@@ -40,7 +40,7 @@ def get_knight_moves(view_board, x, y):
                         #- -
 
 
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-" or "b" in view_board[a][b]:
             to_return.append((a, b))
 
     except:
@@ -49,7 +49,7 @@ def get_knight_moves(view_board, x, y):
     try:
         a, b = (x-1, y-2) #- - -
                                   #-
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-" or "b" in view_board[a][b]:
             to_return.append((a, b))
 
     except:
@@ -60,7 +60,7 @@ def get_knight_moves(view_board, x, y):
                             #- - -
         if a > 0:
 
-            if view_board[a][b] == "-" or "w" in view_board[a][b]:
+            if view_board[a][b] == "-" or "b" in view_board[a][b]:
                 to_return.append((a, b))
 
     except:
@@ -68,7 +68,7 @@ def get_knight_moves(view_board, x, y):
 
     try:
         a, b = (x-1, y+2)
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-" or "b" in view_board[a][b]: #used to be : "w" in view_board[a][b]:
             to_return.append((a, b))
 
     except:
@@ -77,7 +77,7 @@ def get_knight_moves(view_board, x, y):
     try:
         a, b = (x+1, y+2)
         if a > 0:
-            if view_board[a][b] == "-" or "w" in view_board[a][b]:
+            if view_board[a][b] == "-" or "b" in view_board[a][b]:
                 to_return.append((a, b))
 
     except:
