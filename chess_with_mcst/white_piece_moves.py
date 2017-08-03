@@ -94,6 +94,7 @@ def get_bishop_moves(view_board, x, y):
     new_y = y
     new_x = x
     while True:
+        print "here 1"
         if new_y - 1 >= 0 and new_x - 1 >= 0:
             new_y -= 1
             new_x -= 1
@@ -113,6 +114,7 @@ def get_bishop_moves(view_board, x, y):
     new_x = x
 
     while True:
+        print "here 2"
         if new_y + 1 < 8 and new_x - 1 >= 0:
             new_y += 1
             new_x -= 1
@@ -130,6 +132,7 @@ def get_bishop_moves(view_board, x, y):
     new_x = x
 
     while True:
+        print "here 3"
         if new_y + 1  < 8 and new_x + 8 < 8:
             new_y += 1
             new_x += 1
@@ -145,9 +148,11 @@ def get_bishop_moves(view_board, x, y):
     new_x = x
 
     while True:
+        
         if new_y - 1 >= 0 and new_x + 1 < 8:
-            new_y += 1
+            new_y -= 1
             new_x += 1
+            print (new_x, new_y)
             if view_board[new_x][new_y] == "-":
                 to_return.append((new_x, new_y))
             else:
