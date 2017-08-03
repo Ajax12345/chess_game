@@ -97,7 +97,7 @@ class ChessGame(chess_board_pieces.Board):
 
         elif "w" in piece: #white move
             a, b = location
-            if "b" in self.view_board[a][b] and "w" not in self.board_now[a][b]:
+            if "b" in self.view_board[a][b] and "w" not in self.view_board[a][b]:
                 #self.white_capture_rate += 1
                 black_piece = self.view_board[a][b]
                 try:
