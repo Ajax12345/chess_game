@@ -98,9 +98,12 @@ def get_bishop_moves(view_board, x, y):
             #print "got here"
             new_y += 1
             new_x += 1
-            if view_board[new_x][new_y] == "-" or "w" in view_board[new_x][new_y]:
+            if view_board[new_x][new_y] == "-":# or "w" in view_board[new_x][new_y]:
                 #print "got here"
                 to_return.append((new_x, new_y))
+            elif "w" in view_board[new_x][new_y]:
+                to_return.append((new_x, new_y))
+                break
 
 
             else:
@@ -116,9 +119,13 @@ def get_bishop_moves(view_board, x, y):
         if new_y - 1 >=0 and new_x - 1 >= 0:
             new_y -= 1
             new_x -= 1
-            if view_board[new_x][new_y] == "-" or "w" in view_board[new_x][new_y]:
+            if view_board[new_x][new_y] == "-":# or "w" in view_board[new_x][new_y]:
                 #print "got here"
                 to_return.append((new_x, new_y))
+
+            elif "w" in view_board[new_x][new_y]:
+                to_return.append((new_x, new_y))
+                break
 
 
             else:
@@ -135,9 +142,13 @@ def get_bishop_moves(view_board, x, y):
         if new_y + 1 < 8 and new_x -1 >= 0:
             new_y += 1
             new_x -= 1
-            if view_board[new_x][new_y] == "-" or "w" in view_board[new_x][new_y]:
+            if view_board[new_x][new_y] == "-": #or "w" in view_board[new_x][new_y]:
                 #print "got here"
                 to_return.append((new_x, new_y))
+
+            elif "w" in view_board[new_x][new_y]:
+                to_return.append((new_x, new_y))
+                break
 
 
             else:
@@ -153,9 +164,13 @@ def get_bishop_moves(view_board, x, y):
         if new_y -1 >= 0 and new_x + 1 < 8:
             new_y -= 1
             new_x += 1
-            if view_board[new_x][new_y] == "-" or "w" in view_board[new_x][new_y]:
+            if view_board[new_x][new_y] == "-":# or "w" in view_board[new_x][new_y]:
                 #print "got here"
                 to_return.append((new_x, new_y))
+
+            elif "w" in view_board[new_x][new_y]:
+                to_return.append((new_x, new_y))
+                break
 
 
             else:
@@ -174,8 +189,13 @@ def get_rook_moves(view_board, x, y):
     for i in range(x+1, 8):
         a, b = (i, y)
         try:
-            if view_board[a][b] == "-" or "w" in view_board[a][b]:
+            if view_board[a][b] == "-":# or "w" in view_board[a][b]:
                 to_return.append((a, b))
+
+            elif "w" in view_board[a][b]:
+                to_return.append((a, b))
+                break
+
 
             else:
                 break
@@ -185,8 +205,12 @@ def get_rook_moves(view_board, x, y):
 
     for i in range(x):
         a, b = (i, y)
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-":# or "w" in view_board[a][b]:
             to_return.append((a, b))
+
+        elif "w" in view_board[a][b]:
+            to_return.append((a, b))
+            break
 
         else:
             break
@@ -194,8 +218,12 @@ def get_rook_moves(view_board, x, y):
     for i in range(y+1, 8):
 
         a, b = (x, i)
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-":# or "w" in view_board[a][b]:
             to_return.append((a, b))
+
+        elif "w" in view_board[a][b]:
+            to_return.append((a, b))
+            break
 
         else:
             break
@@ -203,13 +231,16 @@ def get_rook_moves(view_board, x, y):
     for i in range(y):
 
         a, b = (x, i)
-        if view_board[a][b] == "-" or "w" in view_board[a][b]:
+        if view_board[a][b] == "-":# or "w" in view_board[a][b]:
             to_return.append((a, b))
+        elif "w" in view_board[a][b]:
+            to_return.append((a, b))
+            break
 
         else:
             break
 
-    return to_return
+    return [i for i in to_return if i != (x, y)]
 
 
 def get_queen_moves(view_board, x, y):
