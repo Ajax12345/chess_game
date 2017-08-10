@@ -6,7 +6,7 @@ import random
 import copy
 import time
 from collections import OrderedDict
-
+#TODO: Push this file and piece_moves.py to github
 class ChessGame(chess_board_pieces.Board):
     def __init__(self):
         chess_board_pieces.Board.__init__(self)
@@ -40,7 +40,7 @@ class ChessGame(chess_board_pieces.Board):
 
             for white_piece, location in self.white_places.items():
                 if location in moves:
-                    print "can capture ", white_piece
+                    #print "can capture ", white_piece
                     best_possibilites[piece] = location
 
 
@@ -56,8 +56,33 @@ class ChessGame(chess_board_pieces.Board):
                     other_possibilites[piece] = spot
         #print possibilites
         if len(best_possibilites) > 0:
-            final_piece_to_move = list(best_possibilites)[0]
-            self.move_piece(final_piece_to_move, best_possibilites[final_piece_to_move])
+            #final_piece_to_move = list(best_possibilites)[0]
+            while True:
+                final_piece_to_move = random.choice(best_possibilites.keys())
+                #print "piece chosen: ", final_piece_to_move
+                if "pb" in final_piece_to_move:
+                    a, b = best_possibilites[final_piece_to_move]
+                    current_pos = self.black_place[final_piece_to_move]
+                    '''
+                    print "current_pos", current_pos
+                    print "capture at: ", (a, b)
+                    '''
+                    if b != current_pos[-1]:
+                        self.move_piece(final_piece_to_move, best_possibilites[final_piece_to_move])
+                        break
+
+                    else:
+                        if len(best_possibilites) > 1:
+                            continue
+
+                        else:
+                            break
+
+                else:
+
+                    self.move_piece(final_piece_to_move, best_possibilites[final_piece_to_move])
+                    break
+
 
         elif possibilites:
             final_piece_to_move = random.choice(possibilites.keys())
