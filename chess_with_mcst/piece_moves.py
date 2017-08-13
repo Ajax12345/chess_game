@@ -269,3 +269,4 @@ def get_king_moves(view_board, x, y):
             to_return.append((x-1, y+1))
 
     return to_return
+
