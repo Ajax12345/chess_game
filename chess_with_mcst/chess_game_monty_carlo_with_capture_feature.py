@@ -6,7 +6,8 @@ import random
 import copy
 import time
 from collections import OrderedDict
-#TODO: Push this file and piece_moves.py to github
+#TODO: Add move file output capability
+
 class ChessGame(chess_board_pieces.Board):
     def __init__(self):
         chess_board_pieces.Board.__init__(self)
@@ -14,6 +15,7 @@ class ChessGame(chess_board_pieces.Board):
         self.determine_squares = {"r":[piece_moves.get_rook_moves, wp.get_rook_moves], "b":[piece_moves.get_bishop_moves, wp.get_bishop_moves], "q":[piece_moves.get_queen_moves, wp.get_queen_moves], "k":[piece_moves.get_king_moves, wp.get_king_moves], "kn":[piece_moves.get_knight_moves, wp.get_bishop_moves], "p":[piece_moves.get_pawn_moves, wp.get_pawn_moves]}
         #self.get_possible_moves()
         #self.play_small_game()
+        self.piece_values = {"k":20, "q":10, "r":5, "p":1, "kn":3, "b":3}
 
 
     def get_possible_moves(self):
@@ -63,10 +65,7 @@ class ChessGame(chess_board_pieces.Board):
                 if "pb" in final_piece_to_move:
                     a, b = best_possibilites[final_piece_to_move]
                     current_pos = self.black_place[final_piece_to_move]
-                    '''
-                    print "current_pos", current_pos
-                    print "capture at: ", (a, b)
-                    '''
+
                     if b != current_pos[-1]:
                         self.move_piece(final_piece_to_move, best_possibilites[final_piece_to_move])
                         break
@@ -76,12 +75,48 @@ class ChessGame(chess_board_pieces.Board):
                             continue
 
                         else:
+                            if possibilites:
+                                final_piece_to_move = random.choice(possibilites.keys())
+                                self.move_piece(final_piece_to_move, possibilites[final_piece_to_move])
+
+                            else:
+                                final_piece_to_move = random.choice(other_possibilites.keys())
+                                self.move_piece(final_piece_to_move, other_possibilites[final_piece_to_move])
+
                             break
 
                 else:
 
+                    all_possible_moves = {a:self.determine_squares[a[:2]][1](self.view_board, b[0], b[1]) if len(a) == 4 else self.determine_squares[a[0]][1](self.view_board, b[0], b[1]) for a, b in self.white_places.items()}
+                    #print "all_possible_moves", all_possible_moves
+                    square_now = best_possibilites[final_piece_to_move]
+                    opponents = [a for a, b in all_possible_moves.items() if square_now in b]
+                    #print "final_piece_to_move", final_piece_to_move
+                    #print "opponents", opponents
+                    #print "self.piece_values[final_piece_to_move[0]]", self.piece_values[final_piece_to_move[0]]
+                    current_piece_value = self.piece_values[final_piece_to_move[0]] if len(final_piece_to_move) != 4 else self.piece_values[i[:2]]
+
+                    if any(self.piece_values[i[0]] < current_piece_value if len(i) != 4 else 3 > current_piece_value for i in opponents):
+                        #print "here"
+                        if possibilites:
+                            final_piece_to_move = random.choice(possibilites.keys())
+                            self.move_piece(final_piece_to_move, possibilites[final_piece_to_move])
+                            break
+
+                        else:
+                            final_piece_to_move = random.choice(other_possibilites.keys())
+                            self.move_piece(final_piece_to_move, other_possibilites[final_piece_to_move])
+                            break
+
+                    else:
+
+                        self.move_piece(final_piece_to_move, best_possibilites[final_piece_to_move])
+                        break
+
+                    '''
                     self.move_piece(final_piece_to_move, best_possibilites[final_piece_to_move])
                     break
+                    '''
 
 
         elif possibilites:
@@ -311,7 +346,7 @@ if __name__ == "__main__":
             print row+1
             print
         g.user_move()
-        time.sleep(2)
+        #time.sleep(2)
         for row, i in enumerate(g.view_board):
             for b in i:
                 if b == "-":
