@@ -139,6 +139,10 @@ class ChessGame(chess_board_pieces.Board):
         piece = raw_input("Enter the piece name: ")
         self.move_piece(piece, (x-1, y-1))
 
+    def user_move_1(self, x, y, piece):
+        self.move_piece(piece, (x-1, y-1))
+
+
     def record_game(self, piece, location):
         #number:[lowercase, UPPERCASE]
         #(number, letter)
@@ -246,11 +250,7 @@ class ChessGame(chess_board_pieces.Board):
                 if "b" in piece and "w" not in piece: #black move
                     a, b = location
                     if "w" in self.board_now[a][b]:
-                        '''
-                        the_enemy_piece = self.board_now[a][b]
-                        the_enemy_piece_value = self.piece_values[the_enemy_piece[0]] if len(the_enemy_piece) != 4 else 3
-                        self.material_score[1] += the_enemy_piece_value
-                        '''
+
                         self.black_capture_rate += 1
                         white_piece = self.board_now[a][b]
                         try:
@@ -396,7 +396,7 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             break
 
-        
+
     number_of_games = [int(i.strip('\n')) for i in open('game_numbers.txt')][0]
     f = open('game_numbers.txt', 'w')
     f.write(str(number_of_games + 1)+"\n")
@@ -414,4 +414,5 @@ if __name__ == "__main__":
     else:
         new_file.write("Tie, {}-{}\n".format(g.material_score[-1], g.material_score[0]))
     new_file.close()
+
 
